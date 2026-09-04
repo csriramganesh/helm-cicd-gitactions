@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:5.7
+          image: mysql:8.0
 
           args:
            - "--innodb-buffer-pool-size=64M"
@@ -33,6 +33,13 @@ spec:
             - containerPort: 3306
 
           env:
+
+            - name: MALLOC_ARENA_MAX
+              value: "2"
+
+            - name: MALLOC_TRIM_THRESHOLD_
+              value: "131072"
+
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -47,8 +54,8 @@ spec:
 
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "100m"
+              memory: "512Mi"
+              cpu: "250m"
             limits:
-              memory: "2Gi"
-              cpu: "500m"        
+              memory: "4Gi"
+              cpu: "1"        
